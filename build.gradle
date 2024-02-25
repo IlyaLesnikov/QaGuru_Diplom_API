@@ -45,6 +45,7 @@ dependencies {
             "org.slf4j:slf4j-simple:$slf4jVersion")
 }
 
+
 tasks.withType(Test) {
     systemProperties(System.getProperties())
     useJUnitPlatform()
@@ -57,3 +58,8 @@ tasks.withType(Test) {
     }
 }
 
+tasks.register("api_tests", Test) {
+    useJUnitPlatform {
+        includeTags("API")
+    }
+}
