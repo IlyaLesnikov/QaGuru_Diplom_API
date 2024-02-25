@@ -24,7 +24,7 @@ public class ApiTests {
         CreateBookingDatesRequest createBookingDates = new CreateBookingDatesRequest("2020-01-01", "2023-01-01");
         CreateBookingRequest createBooking = new CreateBookingRequest("Jim", "Brown", 111, true, createBookingDates, "Breakfast");
 
-        CreateBookingResponse createBookingResponse = step("Отправка запроса на БЭК", () ->
+        CreateBookingResponse createBookingResponse = step("Создание книги", () ->
                 given()
                         .spec(requestSpec)
                         .body(createBooking)
@@ -34,7 +34,7 @@ public class ApiTests {
                         .spec(responseSpec200OK)
                         .extract().as(CreateBookingResponse.class));
 
-        step("Проверка тело ответа от БЭКа", () -> {
+        step("Проверка создания книги", () -> {
             Assertions.assertEquals(createBooking.getFirstname(), createBookingResponse.getBooking().getFirstname());
             Assertions.assertEquals(createBooking.getLastname(), createBookingResponse.getBooking().getLastname());
             Assertions.assertEquals(createBooking.getTotalprice(), createBookingResponse.getBooking().getTotalprice());
@@ -49,7 +49,7 @@ public class ApiTests {
     @Tag("API")
     @DisplayName("Получение определенной книги")
     protected void gettingACertainBookTest() {
-        GetBookingResponse getBookingRequest = step("Отправка запроса на БЭК", () -> given()
+        GetBookingResponse getBookingRequest = step("Получение определенной книги", () -> given()
                 .spec(requestSpec)
                 .when()
                 .get(endPoints.getBOOK_PATH() + "/" + bookingRequests.getBookId())
@@ -58,7 +58,7 @@ public class ApiTests {
                 .spec(responseSpec200OK)
                 .extract().as(GetBookingResponse.class));
 
-        step("Проверка тело ответа от БЭКа", () -> {
+        step("Проверка полученной книги", () -> {
             Assertions.assertEquals("Ilya", getBookingRequest.getFirstname());
             Assertions.assertEquals("Lesnikov", getBookingRequest.getLastname());
             Assertions.assertEquals(1550, getBookingRequest.getTotalprice());
@@ -76,7 +76,7 @@ public class ApiTests {
         CreateBookingDatesRequest createBookingDates = new CreateBookingDatesRequest(null, null);
         CreateBookingRequest updateBooking = new CreateBookingRequest("Jim", "Brown", null, null, null, null);
 
-        GetBookingResponse updateBookingResponse = step("Отправка запроса на БЭК", () ->
+        GetBookingResponse updateBookingResponse = step("Частичное обновление информации о книги", () ->
                 given()
                         .spec(requestSpec)
                         .body(updateBooking)
@@ -87,7 +87,7 @@ public class ApiTests {
                         .spec(responseSpec200OK)
                         .extract().as(GetBookingResponse.class));
 
-        step("Проверка тело ответа от БЭКа", () -> {
+        step("Проверка обновленной информации о книги", () -> {
             Assertions.assertEquals(updateBooking.getFirstname(), updateBookingResponse.getFirstname());
             Assertions.assertEquals(updateBooking.getLastname(), updateBookingResponse.getLastname());
         });
