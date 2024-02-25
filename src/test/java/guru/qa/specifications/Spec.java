@@ -18,8 +18,7 @@ public class Spec {
             .log().uri()
             .log().body()
             .log().headers()
-            .contentType(JSON)
-            .baseUri("https://restful-booker.herokuapp.com");
+            .contentType(JSON);
 
     public static ResponseSpecification responseSpec200OK = new ResponseSpecBuilder()
                 .expectStatusCode(200)

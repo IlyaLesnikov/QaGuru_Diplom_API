@@ -40,6 +40,7 @@ dependencies {
             "io.qameta.allure:allure-rest-assured:$allureVersion",
             "com.github.javafaker:javafaker:$javaFakerVersion",
             "com.stripe:stripe-java:24.15.0",
+            "com.codeborne:selenide:7.1.0"
     )
     testRuntimeOnly (
             "org.slf4j:slf4j-simple:$slf4jVersion")

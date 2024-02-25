@@ -26,13 +26,13 @@ public class ApiTests {
 
         CreateBookingResponse createBookingResponse = step("Отправка запроса на БЭК", () ->
                 given()
-                .spec(requestSpec)
-                .body(createBooking)
-                .when()
-                .post(endPoints.getBOOK_PATH())
-                .then()
-                .spec(responseSpec200OK)
-                .extract().as(CreateBookingResponse.class));
+                        .spec(requestSpec)
+                        .body(createBooking)
+                        .when()
+                        .post(endPoints.getBOOK_PATH())
+                        .then()
+                        .spec(responseSpec200OK)
+                        .extract().as(CreateBookingResponse.class));
 
         step("Проверка тело ответа от БЭКа");
         Assertions.assertEquals(createBooking.getFirstname(), createBookingResponse.getBooking().getFirstname());
@@ -77,14 +77,14 @@ public class ApiTests {
 
         GetBookingResponse updateBookingResponse = step("Отправка запроса на БЭК", () ->
                 given()
-                .spec(requestSpec)
-                .body(updateBooking)
-                .header("Cookie", "token=" + bookingRequests.getCookie())
-                .when()
-                .patch(endPoints.getBOOK_PATH() + "/" + bookingRequests.getBookId())
-                .then()
-                .spec(responseSpec200OK)
-                .extract().as(GetBookingResponse.class));
+                        .spec(requestSpec)
+                        .body(updateBooking)
+                        .header("Cookie", "token=" + bookingRequests.getCookie())
+                        .when()
+                        .patch(endPoints.getBOOK_PATH() + "/" + bookingRequests.getBookId())
+                        .then()
+                        .spec(responseSpec200OK)
+                        .extract().as(GetBookingResponse.class));
 
         step("Проверка тело ответа от БЭКа", () -> {
             Assertions.assertEquals(updateBooking.getFirstname(), updateBookingResponse.getFirstname());
@@ -100,16 +100,16 @@ public class ApiTests {
         CreateBookingRequest updateBooking = new CreateBookingRequest("Jim", "Brown", 10000, false, createBookingDates, "QC");
 
         GetBookingResponse updateBookingResponse = step("Отправка запроса на БЭК", () ->
-                    given()
-                    .filter(withCustomTemplates())
-                    .spec(requestSpec)
-                    .body(updateBooking)
-                    .header("Cookie", "token=" + bookingRequests.getCookie())
-                    .when()
-                    .put(endPoints.getBOOK_PATH() + "/" + bookingRequests.getBookId())
-                    .then()
-                    .spec(responseSpec200OK)
-                    .extract().as(GetBookingResponse.class));
+                given()
+                        .filter(withCustomTemplates())
+                        .spec(requestSpec)
+                        .body(updateBooking)
+                        .header("Cookie", "token=" + bookingRequests.getCookie())
+                        .when()
+                        .put(endPoints.getBOOK_PATH() + "/" + bookingRequests.getBookId())
+                        .then()
+                        .spec(responseSpec200OK)
+                        .extract().as(GetBookingResponse.class));
 
         step("Проверка тело ответа от БЭКа", () -> {
             Assertions.assertEquals(updateBooking.getFirstname(), updateBookingResponse.getFirstname());
@@ -121,17 +121,17 @@ public class ApiTests {
             Assertions.assertEquals(updateBooking.getAdditionalneeds(), updateBookingResponse.getAdditionalneeds());
         });
     }
-}
 
-//    @Test
-//    @Tag("API")
-//    @DisplayName("Обновление информации о книге")
-//    protected void deletingABook() {
-//        given()
-//                .spec(requestSpec)
-//                .header("Cookie", "token=" + bookingRequests.getCookie())
-//                .when()
-//                .delete(endPoints.getBOOK_PATH() + "/" + bookingRequests.getBookId())
-//                .then()
-//                .body("", Matchers.hasSize(0));
-//    }
+    @Test
+    @Tag("API")
+    @DisplayName("Обновление информации о книге")
+    protected void deletingABook() {
+        given()
+                .spec(requestSpec)
+                .header("Cookie", "token=" + bookingRequests.getCookie())
+                .when()
+                .delete(endPoints.getBOOK_PATH() + "/" + bookingRequests.getBookId())
+                .then()
+                .spec(responseSpecification201Created);
+    }
+}
