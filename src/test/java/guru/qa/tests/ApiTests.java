@@ -12,7 +12,7 @@ import static guru.qa.specifications.Spec.*;
 import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
 
-
+@DisplayName("API тесты к сервису \"Книги\"")
 public class ApiTests {
     EndPoints endPoints = new EndPoints();
     BookingRequests bookingRequests = new BookingRequests();
@@ -44,7 +44,7 @@ public class ApiTests {
             Assertions.assertEquals(createBooking.getAdditionalneeds(), createBookingResponse.getBooking().getAdditionalneeds());
         });
     }
-    
+
     @Test
     @Tag("API")
     @DisplayName("Получение определенной книги")
@@ -100,7 +100,7 @@ public class ApiTests {
         CreateBookingDatesRequest createBookingDates = new CreateBookingDatesRequest("2019-01-01", "2020-01-01");
         CreateBookingRequest updateBooking = new CreateBookingRequest("Jim", "Brown", 10000, false, createBookingDates, "QC");
 
-        GetBookingResponse updateBookingResponse = step("Отправка запроса на БЭК", () ->
+        GetBookingResponse updateBookingResponse = step("Обновление всей информации о книге", () ->
                 given()
                         .filter(withCustomTemplates())
                         .spec(requestSpec)
@@ -112,7 +112,7 @@ public class ApiTests {
                         .spec(responseSpec200OK)
                         .extract().as(GetBookingResponse.class));
 
-        step("Проверка тело ответа от БЭКа", () -> {
+        step("Проверка обновленной информации о книге", () -> {
             Assertions.assertEquals(updateBooking.getFirstname(), updateBookingResponse.getFirstname());
             Assertions.assertEquals(updateBooking.getLastname(), updateBookingResponse.getLastname());
             Assertions.assertEquals(updateBooking.getTotalprice(), updateBookingResponse.getTotalprice());
@@ -125,14 +125,15 @@ public class ApiTests {
 
     @Test
     @Tag("API")
-    @DisplayName("Обновление информации о книге")
+    @DisplayName("Удаление книги")
     protected void deletingABook() {
+        step("Удаление книги", () ->
         given()
                 .spec(requestSpec)
                 .header("Cookie", "token=" + bookingRequests.getCookie())
                 .when()
                 .delete(endPoints.getBOOK_PATH() + "/" + bookingRequests.getBookId())
                 .then()
-                .spec(responseSpecification201Created);
+                .spec(responseSpecification201Created));
     }
 }
