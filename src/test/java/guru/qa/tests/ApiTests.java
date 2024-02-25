@@ -34,16 +34,17 @@ public class ApiTests {
                         .spec(responseSpec200OK)
                         .extract().as(CreateBookingResponse.class));
 
-        step("Проверка тело ответа от БЭКа");
-        Assertions.assertEquals(createBooking.getFirstname(), createBookingResponse.getBooking().getFirstname());
-        Assertions.assertEquals(createBooking.getLastname(), createBookingResponse.getBooking().getLastname());
-        Assertions.assertEquals(createBooking.getTotalprice(), createBookingResponse.getBooking().getTotalprice());
-        Assertions.assertTrue(createBookingResponse.getBooking().getDepositpaid());
-        Assertions.assertEquals(createBookingDates.getCheckin(), createBookingResponse.getBooking().getBookingdates().getCheckin());
-        Assertions.assertEquals(createBookingDates.getCheckout(), createBookingResponse.getBooking().getBookingdates().getCheckout());
-        Assertions.assertEquals(createBooking.getAdditionalneeds(), createBookingResponse.getBooking().getAdditionalneeds());
+        step("Проверка тело ответа от БЭКа", () -> {
+            Assertions.assertEquals(createBooking.getFirstname(), createBookingResponse.getBooking().getFirstname());
+            Assertions.assertEquals(createBooking.getLastname(), createBookingResponse.getBooking().getLastname());
+            Assertions.assertEquals(createBooking.getTotalprice(), createBookingResponse.getBooking().getTotalprice());
+            Assertions.assertTrue(createBookingResponse.getBooking().getDepositpaid());
+            Assertions.assertEquals(createBookingDates.getCheckin(), createBookingResponse.getBooking().getBookingdates().getCheckin());
+            Assertions.assertEquals(createBookingDates.getCheckout(), createBookingResponse.getBooking().getBookingdates().getCheckout());
+            Assertions.assertEquals(createBooking.getAdditionalneeds(), createBookingResponse.getBooking().getAdditionalneeds());
+        });
     }
-
+    
     @Test
     @Tag("API")
     @DisplayName("Получение определенной книги")
