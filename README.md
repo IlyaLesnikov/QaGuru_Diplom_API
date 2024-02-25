@@ -1,4 +1,4 @@
-<h1 >Проект по автоматизации API тестирования сервиса <a href="https://reqres.in/ ">Reqres.in</a></h1>
+<h1 >Проект по автоматизации тестирования API сервиса <a href="https://restful-booker.herokuapp.com/ ">restful-booker</a></h1>
 
 <p align="center">  
 <img src="media/reqres.in.png" alt="MainLogo" width="950"/></a>  
