@@ -1,4 +1,4 @@
-package guru.qa.models.CreateToken;
+package guru.qa.models.createtoken;
 
 
 import lombok.AllArgsConstructor;

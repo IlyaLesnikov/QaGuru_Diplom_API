@@ -1,7 +1,7 @@
-package guru.qa.models.CreateBooking;
+package guru.qa.models.createbooking;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import guru.qa.models.CreateBooking.CreateBookingDatesRequest;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 @Data
@@ -10,8 +10,10 @@ import lombok.*;
 public class CreateBookingRequest {
 	private String firstname;
 	private String lastname;
-	private Integer totalprice;
+	@JsonProperty("totalprice")
+	private Integer totalPrice;
 	private Boolean depositpaid;
-	private CreateBookingDatesRequest bookingdates;
+	@JsonProperty("bookingdates")
+	private CreateBookingDatesRequest bookingdDates;
 	private String additionalneeds;
 }

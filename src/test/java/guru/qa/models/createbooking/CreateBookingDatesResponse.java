@@ -1,9 +1,11 @@
-package guru.qa.models.CreateBooking;
+package guru.qa.models.createbooking;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
 public class CreateBookingDatesResponse {
+	@JsonProperty("checkin")
 	private String checkin;
 	private String checkout;
 }

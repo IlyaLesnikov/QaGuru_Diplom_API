@@ -1,28 +1,24 @@
 package guru.qa.tests;
 
-import guru.qa.endpoints.EndPoints;
-import guru.qa.models.CreateBooking.CreateBookingDatesRequest;
-import guru.qa.models.CreateBooking.CreateBookingRequest;
-import guru.qa.models.CreateBooking.CreateBookingResponse;
-import guru.qa.models.GetBooking.GetBookingResponse;
+import guru.qa.models.createbooking.CreateBookingDatesRequest;
+import guru.qa.models.createbooking.CreateBookingRequest;
+import guru.qa.models.createbooking.CreateBookingResponse;
+import guru.qa.models.getbooking.GetBookingResponse;
 import guru.qa.requests.BookingRequests;
 import guru.qa.specifications.Spec;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-
 import static guru.qa.endpoints.EndPoints.BOOK_PATH;
 import static guru.qa.helpres.CustomAllureListener.withCustomTemplates;
 import static guru.qa.specifications.Spec.*;
 import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("API тесты к сервису \"Книги\"")
 public class ApiTests {
-    EndPoints endPoints = new EndPoints();
     BookingRequests bookingRequests = new BookingRequests();
-
     @Test
     @Tag("API")
     @DisplayName("Создание книги")
@@ -41,13 +37,13 @@ public class ApiTests {
                         .extract().as(CreateBookingResponse.class));
 
         step("Проверка создания книги", () -> {
-            Assertions.assertEquals(createBooking.getFirstname(), createBookingResponse.getBooking().getFirstname());
-            Assertions.assertEquals(createBooking.getLastname(), createBookingResponse.getBooking().getLastname());
-            Assertions.assertEquals(createBooking.getTotalprice(), createBookingResponse.getBooking().getTotalprice());
-            Assertions.assertTrue(createBookingResponse.getBooking().getDepositpaid());
-            Assertions.assertEquals(createBookingDates.getCheckin(), createBookingResponse.getBooking().getBookingdates().getCheckin());
-            Assertions.assertEquals(createBookingDates.getCheckout(), createBookingResponse.getBooking().getBookingdates().getCheckout());
-            Assertions.assertEquals(createBooking.getAdditionalneeds(), createBookingResponse.getBooking().getAdditionalneeds());
+            assertEquals(createBooking.getFirstname(), createBookingResponse.getBooking().getFirstname());
+            assertEquals(createBooking.getLastname(), createBookingResponse.getBooking().getLastname());
+            assertEquals(createBooking.getTotalPrice(), createBookingResponse.getBooking().getTotalPrice());
+            assertTrue(createBookingResponse.getBooking().getDepositpaid());
+            assertEquals(createBookingDates.getCheckIn(), createBookingResponse.getBooking().getBookingDates().getCheckin());
+            assertEquals(createBookingDates.getCheckout(), createBookingResponse.getBooking().getBookingDates().getCheckout());
+            assertEquals(createBooking.getAdditionalneeds(), createBookingResponse.getBooking().getAdditionalneeds());
         });
     }
 
@@ -65,13 +61,13 @@ public class ApiTests {
                 .extract().as(GetBookingResponse.class));
 
         step("Проверка полученной книги", () -> {
-            Assertions.assertEquals("Ilya", getBookingRequest.getFirstname());
-            Assertions.assertEquals("Lesnikov", getBookingRequest.getLastname());
-            Assertions.assertEquals(1550, getBookingRequest.getTotalprice());
-            Assertions.assertTrue(getBookingRequest.getDepositpaid());
-            Assertions.assertEquals("2020-02-23", getBookingRequest.getBookingdates().getCheckin());
-            Assertions.assertEquals("2024-02-23", getBookingRequest.getBookingdates().getCheckout());
-            Assertions.assertEquals("QA", getBookingRequest.getAdditionalneeds());
+            assertEquals("Ilya", getBookingRequest.getFirstname());
+            assertEquals("Lesnikov", getBookingRequest.getLastname());
+            assertEquals(1550, getBookingRequest.getTotalPrice());
+            assertTrue(getBookingRequest.getDepositpaid());
+            assertEquals("2020-02-23", getBookingRequest.getBookingDates().getCheckIn());
+            assertEquals("2024-02-23", getBookingRequest.getBookingDates().getCheckout());
+            assertEquals("QA", getBookingRequest.getAdditionalneeds());
         });
     }
 
@@ -81,7 +77,7 @@ public class ApiTests {
     protected void partialUpdateOfBookInformationTest() {
         Spec.initResponseSpec(Spec.responseSpec(200));
         CreateBookingDatesRequest createBookingDates = new CreateBookingDatesRequest(null, null);
-        CreateBookingRequest updateBooking = new CreateBookingRequest("Jim", "Brown", null, null, null, null);
+        CreateBookingRequest updateBooking = new CreateBookingRequest("Jim", "Brown", null, null, createBookingDates, null);
 
         GetBookingResponse updateBookingResponse = step("Частичное обновление информации о книги", () ->
                 given()
@@ -94,8 +90,8 @@ public class ApiTests {
                         .extract().as(GetBookingResponse.class));
 
         step("Проверка обновленной информации о книги", () -> {
-            Assertions.assertEquals(updateBooking.getFirstname(), updateBookingResponse.getFirstname());
-            Assertions.assertEquals(updateBooking.getLastname(), updateBookingResponse.getLastname());
+            assertEquals(updateBooking.getFirstname(), updateBookingResponse.getFirstname());
+            assertEquals(updateBooking.getLastname(), updateBookingResponse.getLastname());
         });
     }
 
@@ -119,13 +115,13 @@ public class ApiTests {
                         .extract().as(GetBookingResponse.class));
 
         step("Проверка обновленной информации о книге", () -> {
-            Assertions.assertEquals(updateBooking.getFirstname(), updateBookingResponse.getFirstname());
-            Assertions.assertEquals(updateBooking.getLastname(), updateBookingResponse.getLastname());
-            Assertions.assertEquals(updateBooking.getTotalprice(), updateBookingResponse.getTotalprice());
-            Assertions.assertFalse(updateBookingResponse.getDepositpaid());
-            Assertions.assertEquals(createBookingDates.getCheckin(), updateBookingResponse.getBookingdates().getCheckin());
-            Assertions.assertEquals(createBookingDates.getCheckout(), updateBookingResponse.getBookingdates().getCheckout());
-            Assertions.assertEquals(updateBooking.getAdditionalneeds(), updateBookingResponse.getAdditionalneeds());
+            assertEquals(updateBooking.getFirstname(), updateBookingResponse.getFirstname());
+            assertEquals(updateBooking.getLastname(), updateBookingResponse.getLastname());
+            assertEquals(updateBooking.getTotalPrice(), updateBookingResponse.getTotalPrice());
+            assertFalse(updateBookingResponse.getDepositpaid());
+            assertEquals(createBookingDates.getCheckIn(), updateBookingResponse.getBookingDates().getCheckIn());
+            assertEquals(createBookingDates.getCheckout(), updateBookingResponse.getBookingDates().getCheckout());
+            assertEquals(updateBooking.getAdditionalneeds(), updateBookingResponse.getAdditionalneeds());
         });
     }
 
