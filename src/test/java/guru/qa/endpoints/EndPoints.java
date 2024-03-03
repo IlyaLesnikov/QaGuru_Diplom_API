@@ -1,8 +1,6 @@
 package guru.qa.endpoints;
 
-import lombok.Data;
-@Data
 public class EndPoints {
-    private final String AUTH_PATH = "/auth";
-    private final String BOOK_PATH = "/booking";
+    public static final String AUTH_PATH = "/auth";
+    public static final String BOOK_PATH = "/booking";
 }

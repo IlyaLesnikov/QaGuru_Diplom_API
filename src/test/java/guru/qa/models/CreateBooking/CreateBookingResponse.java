@@ -1,5 +1,6 @@
-package guru.qa.models;
+package guru.qa.models.CreateBooking;
 
+import guru.qa.models.CreateBooking.CreateBookingEntityResponse;
 import lombok.Data;
 
 @Data

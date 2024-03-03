@@ -1,5 +1,6 @@
-package guru.qa.models;
+package guru.qa.models.CreateBooking;
 
+import guru.qa.models.CreateBooking.CreateBookingDatesResponse;
 import lombok.Data;
 
 @Data
@@ -8,6 +9,6 @@ public class CreateBookingEntityResponse {
 	private String lastname;
 	private Integer totalprice;
 	private Boolean depositpaid;
-	private CreateBookingDatesResponce bookingdates;
+	private CreateBookingDatesResponse bookingdates;
 	private String additionalneeds;
 }

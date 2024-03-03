@@ -1,12 +1,18 @@
 package guru.qa.tests;
 
 import guru.qa.endpoints.EndPoints;
-import guru.qa.models.*;
+import guru.qa.models.CreateBooking.CreateBookingDatesRequest;
+import guru.qa.models.CreateBooking.CreateBookingRequest;
+import guru.qa.models.CreateBooking.CreateBookingResponse;
+import guru.qa.models.GetBooking.GetBookingResponse;
 import guru.qa.requests.BookingRequests;
+import guru.qa.specifications.Spec;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+
+import static guru.qa.endpoints.EndPoints.BOOK_PATH;
 import static guru.qa.helpres.CustomAllureListener.withCustomTemplates;
 import static guru.qa.specifications.Spec.*;
 import static io.qameta.allure.Allure.step;
@@ -21,6 +27,7 @@ public class ApiTests {
     @Tag("API")
     @DisplayName("Создание книги")
     protected void bookCreationTest() {
+        Spec.initResponseSpec(Spec.responseSpec(200));
         CreateBookingDatesRequest createBookingDates = new CreateBookingDatesRequest("2020-01-01", "2023-01-01");
         CreateBookingRequest createBooking = new CreateBookingRequest("Jim", "Brown", 111, true, createBookingDates, "Breakfast");
 
@@ -29,9 +36,8 @@ public class ApiTests {
                         .spec(requestSpec)
                         .body(createBooking)
                         .when()
-                        .post(endPoints.getBOOK_PATH())
+                        .post(BOOK_PATH)
                         .then()
-                        .spec(responseSpec200OK)
                         .extract().as(CreateBookingResponse.class));
 
         step("Проверка создания книги", () -> {
@@ -49,13 +55,13 @@ public class ApiTests {
     @Tag("API")
     @DisplayName("Получение определенной книги")
     protected void gettingACertainBookTest() {
+        Spec.initResponseSpec(Spec.responseSpec(200));
         GetBookingResponse getBookingRequest = step("Получение определенной книги", () -> given()
                 .spec(requestSpec)
                 .when()
-                .get(endPoints.getBOOK_PATH() + "/" + bookingRequests.getBookId())
+                .get(BOOK_PATH + "/" + bookingRequests.getBookId())
                 .then()
                 .log().body()
-                .spec(responseSpec200OK)
                 .extract().as(GetBookingResponse.class));
 
         step("Проверка полученной книги", () -> {
@@ -73,6 +79,7 @@ public class ApiTests {
     @Tag("API")
     @DisplayName("Частичное обновление информации книги")
     protected void partialUpdateOfBookInformationTest() {
+        Spec.initResponseSpec(Spec.responseSpec(200));
         CreateBookingDatesRequest createBookingDates = new CreateBookingDatesRequest(null, null);
         CreateBookingRequest updateBooking = new CreateBookingRequest("Jim", "Brown", null, null, null, null);
 
@@ -82,9 +89,8 @@ public class ApiTests {
                         .body(updateBooking)
                         .header("Cookie", "token=" + bookingRequests.getCookie())
                         .when()
-                        .patch(endPoints.getBOOK_PATH() + "/" + bookingRequests.getBookId())
+                        .patch(BOOK_PATH + "/" + bookingRequests.getBookId())
                         .then()
-                        .spec(responseSpec200OK)
                         .extract().as(GetBookingResponse.class));
 
         step("Проверка обновленной информации о книги", () -> {
@@ -97,6 +103,7 @@ public class ApiTests {
     @Tag("API")
     @DisplayName("Обновление информации о книге")
     protected void updatingBookInformationTest() {
+        Spec.initResponseSpec(Spec.responseSpec(200));
         CreateBookingDatesRequest createBookingDates = new CreateBookingDatesRequest("2019-01-01", "2020-01-01");
         CreateBookingRequest updateBooking = new CreateBookingRequest("Jim", "Brown", 10000, false, createBookingDates, "QC");
 
@@ -107,9 +114,8 @@ public class ApiTests {
                         .body(updateBooking)
                         .header("Cookie", "token=" + bookingRequests.getCookie())
                         .when()
-                        .put(endPoints.getBOOK_PATH() + "/" + bookingRequests.getBookId())
+                        .put(BOOK_PATH + "/" + bookingRequests.getBookId())
                         .then()
-                        .spec(responseSpec200OK)
                         .extract().as(GetBookingResponse.class));
 
         step("Проверка обновленной информации о книге", () -> {
@@ -127,13 +133,13 @@ public class ApiTests {
     @Tag("API")
     @DisplayName("Удаление книги")
     protected void deletingABook() {
+        Spec.initResponseSpec(Spec.responseSpec(201));
         step("Удаление книги", () ->
         given()
                 .spec(requestSpec)
                 .header("Cookie", "token=" + bookingRequests.getCookie())
                 .when()
-                .delete(endPoints.getBOOK_PATH() + "/" + bookingRequests.getBookId())
-                .then()
-                .spec(responseSpecification201Created));
+                .delete(BOOK_PATH + "/" + bookingRequests.getBookId())
+                .then());
     }
 }

@@ -1,6 +1,7 @@
-package guru.qa.models;
+package guru.qa.models.CreateBooking;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import guru.qa.models.CreateBooking.CreateBookingDatesRequest;
 import lombok.*;
 
 @Data

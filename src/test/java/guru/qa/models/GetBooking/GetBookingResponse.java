@@ -1,5 +1,6 @@
-package guru.qa.models;
+package guru.qa.models.GetBooking;
 
+import guru.qa.models.GetBooking.GetBookingDatesResponse;
 import lombok.Data;
 
 @Data

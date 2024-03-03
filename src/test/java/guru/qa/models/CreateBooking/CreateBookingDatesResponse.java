@@ -1,9 +1,9 @@
-package guru.qa.models;
+package guru.qa.models.CreateBooking;
 
 import lombok.Data;
 
 @Data
-public class CreateBookingDatesResponce {
+public class CreateBookingDatesResponse {
 	private String checkin;
 	private String checkout;
 }
