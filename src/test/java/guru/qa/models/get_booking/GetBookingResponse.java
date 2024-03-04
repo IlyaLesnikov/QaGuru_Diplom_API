@@ -1,4 +1,4 @@
-package guru.qa.models.getbooking;
+package guru.qa.models.get_booking;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

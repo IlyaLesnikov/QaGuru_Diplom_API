@@ -1,8 +1,8 @@
 package guru.qa.requests;
 
-import guru.qa.models.createbooking.CreateBookingDatesRequest;
-import guru.qa.models.createbooking.CreateBookingRequest;
-import guru.qa.models.createtoken.CreateTokenRequest;
+import guru.qa.models.create_booking.CreateBookingDatesRequest;
+import guru.qa.models.create_booking.CreateBookingRequest;
+import guru.qa.models.create_token.CreateTokenRequest;
 import guru.qa.specifications.Spec;
 import static guru.qa.endpoints.EndPoints.AUTH_PATH;
 import static guru.qa.endpoints.EndPoints.BOOK_PATH;

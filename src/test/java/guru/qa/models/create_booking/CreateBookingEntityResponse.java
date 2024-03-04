@@ -1,19 +1,16 @@
-package guru.qa.models.createbooking;
+package guru.qa.models.create_booking;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import lombok.Data;
 
 @Data
-@AllArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class CreateBookingRequest {
+public class CreateBookingEntityResponse {
 	private String firstname;
 	private String lastname;
 	@JsonProperty("totalprice")
 	private Integer totalPrice;
 	private Boolean depositpaid;
 	@JsonProperty("bookingdates")
-	private CreateBookingDatesRequest bookingdDates;
+	private CreateBookingDatesResponse bookingDates;
 	private String additionalneeds;
 }

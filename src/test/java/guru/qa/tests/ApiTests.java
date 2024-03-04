@@ -1,9 +1,9 @@
 package guru.qa.tests;
 
-import guru.qa.models.createbooking.CreateBookingDatesRequest;
-import guru.qa.models.createbooking.CreateBookingRequest;
-import guru.qa.models.createbooking.CreateBookingResponse;
-import guru.qa.models.getbooking.GetBookingResponse;
+import guru.qa.models.create_booking.CreateBookingDatesRequest;
+import guru.qa.models.create_booking.CreateBookingRequest;
+import guru.qa.models.create_booking.CreateBookingResponse;
+import guru.qa.models.get_booking.GetBookingResponse;
 import guru.qa.requests.BookingRequests;
 import guru.qa.specifications.Spec;
 import org.junit.jupiter.api.DisplayName;

@@ -1,4 +1,4 @@
-package guru.qa.models.createbooking;
+package guru.qa.models.create_booking;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

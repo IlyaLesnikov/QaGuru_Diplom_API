@@ -1,4 +1,4 @@
-package guru.qa.models.createtoken;
+package guru.qa.models.create_token;
 
 import lombok.Data;
 
